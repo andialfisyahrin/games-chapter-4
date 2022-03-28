@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: #9c835f;
+        }
+        .judul{
+            display: flex;
+            flex-direction: row;
+        }
+        .judul-games{
+            margin-left: 10px;
+        }
+        .tengah{
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            position: relative;
+        }
+        .player{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .player h2{
+            text-align: center;
+        }
+        .vs{
+            font-size: 144px;
+            line-height: 196px;
+            font-weight: 700;
+            color: #bd0000;
+            margin: 0 86px;
+        }
+        .player_win{
+            font-weight: 700;
+            font-size: 56px;
+            position: absolute;
+            top: 18%;
+            text-align: center;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+            background-color: #4c9654;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        .com_win{
+            font-weight: 700;
+            font-size: 56px;
+            position: absolute;
+            top: 18%;
+            text-align: center;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+            background-color: #4c9654;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        .draw{
+            font-weight: 700;
+            font-size: 56px;
+            position: absolute;
+            top: 18%;
+            text-align: center;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+            background-color: #4c9654;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        .batu{
+            width: 128px;
+            height: 92px;
+        }
+        .kertas{
+            width: 115px;
+            height: 150px;
+            
+        }
+        .gunting{
+            width: 134px;
+            height: 160px;
+            /* margin-bottom: 81px; */
+        }
+        .refresh{
+            display: flex;
+            justify-content: center;
+        }
+        .refresh img{
+            width: 77px;
+            height: 71px;
+        }
+        .pilihan_player{
+            padding: 20px;
+            background-color: #C4C4C4;
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+ 
+       .pilihan_player:focus{
+           background-color: #bd0000;
+       }
+
+       .pilihan_computer{
+             padding: 20px;
+            background-color: #C4C4C4;
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 80px;
+       }
+       .pilihan_computer:focus{
+           background-color: #bd0000;
+       }
+    </style>
+</head>
+<body>
+    <div class="judul">
+        <img src="logo.svg" >
+        <h1 class="judul-games">ROCK PAPER SCISSORS</h1>
+    </div>
+    <div class="tengah">
+        <div class="player">
+            <h2>PLAYER 1</h2>
+            <div id="batu" class="pilihan_player" onclick="pickOption('batu')">
+                <img src="batu.png" class="batu" >
+            </div>
+            <div id="kertas" class="pilihan_player" onclick="pickOption('kertas')">
+                <img src="kertas.png" class="kertas" >
+            </div>
+            <div id="gunting" class="pilihan_player" onclick="pickOption('gunting')">
+                <img src="gunting.png" class="gunting" >
+            </div>
+            
+        </div>
+        <div class="vs">
+            <h2>VS</h2>
+        </div>
+        
+        <h2 id="player_win" class="player_win">Player 1<br>Win</h2>
+        <h2 id="com_win" class="com_win">Com<br>Win</h2>
+        <h2 id="draw" class="draw">draw</h2>
+        
+        <div class="player">
+            <h2>COM</h2>
+            <div class="pilihan_computer">
+                <img src="batu.png" class="batu" >
+            </div>
+            <div class="pilihan_computer">
+                <img src="kertas.png" class="kertas" >
+            </div>
+            <div class="pilihan_computer">
+                <img src="gunting.png" class="gunting" >
+            </div>
+        </div>
+    </div>
+    <div id="refresh" class="refresh">
+        <img src="refresh.svg" >
+    </div>
+
+    <script>
+        class Start {
+            constructor() {
+                this.player = "Player"
+                this.computer = "Computer"
+                this.playerOpt
+                this.computerOpt
+                this.pemenang
+                this.playerWin = document.getElementById("player_win")
+                this.comWin = document.getElementById("com_win")
+                this.draw = document.getElementById("draw")
+                this.refresh = document.getElementById("refresh")
+                this.batu = document.getElementById("batu")
+                this.kertas = document.getElementById("kertas")
+                this.gunting = document.getElementById("gunting")
+            }
+
+            get getComputerOpt() {
+                return this.computerOpt
+                // console.log("ini this.computeropt")
+
+            }
+
+            set setComputerOpt(option) {
+                // console.log("ini set computer")
+                this.computerOpt = option
+            }
+
+            get getPlayerOpt() {
+                // console.log("ini this.player")
+                return this.playerOpt
+                return pickOption.setAttribute("style", "color: red")
+            }
+
+            set setPlayerOpt(option) {
+                this.playerOpt = option
+            }
+
+            
+
+            computerBrain() { 
+                const option = ["batu", "kertas", "gunting"]
+                const com = option[Math.floor(Math.random() * option.length)]
+                console.log("computer pilih ", com.toString())
+                return com
+                
+            }
+
+            pilihPemenang() {
+                if (this.computerOpt == "kertas" && this.playerOpt == 'gunting') {
+                    console.log("player menang")
+                    return this.playerWin.setAttribute("style", "display: flex;")
+                } else if (this.computerOpt == "kertas" && this.playerOpt == "batu") {
+                    console.log("com menang")
+                    return this.comWin.setAttribute("style", "display: flex;")
+                } else if (this.computerOpt == "gunting" && this.playerOpt == "kertas") {
+                    console.log("com menang")
+                    return this.comWin.setAttribute("style", "display: flex;")
+                } else if (this.computerOpt == "gunting" && this.playerOpt == "batu") {
+                    console.log("player menang")
+                    return this.playerWin.setAttribute("style", "display: flex;")
+                } else if (this.computerOpt == "batu" && this.playerOpt == "kertas") {
+                    console.log("player menang")
+                    return this.playerWin.setAttribute("style", "display: flex;")
+                } else if (this.computerOpt == "batu" && this.playerOpt == "gunting") {
+                    console.log("com menang")
+                    return this.comWin.setAttribute("style", "display: flex;")
+                } else {
+                    console.log("seri")
+                    return this.draw.setAttribute("style", "display: flex;")
+                }
+            }
+
+            hasilGame() {
+                if (this.pemenang != "Seri") {
+                    return this
+                }
+            }
+        }
+
+        function pickOption(params){
+            const start = new Start()
+            start.setPlayerOpt = params
+            start.setComputerOpt = start.computerBrain()
+            start.pilihPemenang()
+
+            // start.setComputerOpt = start.computerBrain()
+            // start.pilihPemenang
+            console.log("kamu memilih", start.getPlayerOpt)
+        }
+
+        
+    </script>
+</body>
+</html>
